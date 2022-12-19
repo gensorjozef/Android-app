@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="model"
+            type="com.example.zadanie.ui.viewmodels.LocateViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="24dp">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieAnim"
+            android:layout_width="363dp"
+            android:layout_height="555dp"
+            android:layout_marginTop="13dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detailBox"
+            app:lottie_rawRes="@raw/beer"
+            tools:ignore="MissingConstraints">
+
+        </com.airbnb.lottie.LottieAnimationView>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/detailBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="34dp"
+            android:padding="8dp"
+            app:cardCornerRadius="30dp"
+            app:strokeWidth="3dp"
+            app:cardElevation="4dp"
+            app:strokeColor="@color/design_default_color_secondary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
+
+                <TextView
+                    android:id="@+id/name"
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="16dp"
+                    android:text="@{model.myBar.name}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Bar" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{model.myBar.type}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/name" />
+
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/checkme"
+                    android:layout_width="60dp"
+                    android:layout_height="40dp"
+                    android:enabled="@{model.myBar!=null}"
+                    app:lottie_rawRes="@raw/button_anim"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/name" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swiperefresh"
+            android:layout_width="362dp"
+            android:layout_height="489dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detailBox">
+
+            <com.example.zadanie.ui.widget.nearbyBars.NearbyBarsRecyclerView
+                android:id="@+id/nearbyBars"
+                nearbyBars="@{model.bars}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <View
+            showTextToast="@{model.message}"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
